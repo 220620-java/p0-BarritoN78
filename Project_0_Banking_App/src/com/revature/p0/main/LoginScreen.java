@@ -38,7 +38,7 @@ public class LoginScreen {
 			default:
 				System.out.println("The email you entered does not have an account\n");
 				login();break;
-			}			
+			}break;	
 		}
 	}
 	
@@ -48,16 +48,16 @@ public class LoginScreen {
 		password = key_inp.nextLine();
 		switch(password.toUpperCase()) {
 		case("H"):
-			System.out.println("You will be returned to the home screen\n");
+			System.out.println("You will be returned to the home screen\n");break;
 		default:
 			switch(password) {
 			case "Is correct":
 				System.out.println("You have gained access\n");
-				appAccess = true;
+				appAccess = true; break;
 			default:
 				System.out.println("The password you have entered is invalid\n");
-				loginPasswordEntry();
-			}
+				loginPasswordEntry();break;
+			}break;
 		}
 	}
 	
@@ -71,11 +71,11 @@ public class LoginScreen {
 		try {
 			if (email.contains("@") && email.substring(emailLength - 5).contains(".")) {//email has '@' and '.' towards the end
 				switch(email) {
-				case "Already exists":
+				case "Already@exists.":
 					System.out.println("An account has already been linked to this email. Please use a different email or log in\n");
 					register();break;
 				default:
-					registerPasswordEntry();
+					registerPasswordEntry();break;
 				}
 			}
 			else {
@@ -84,7 +84,7 @@ public class LoginScreen {
 					login();break;
 				default:
 					System.out.println("The email you entered is invalid\n");
-					register();
+					register();break;
 				}
 			}
 		}
@@ -98,9 +98,8 @@ public class LoginScreen {
 		String password1, password2;
 		System.out.println("Please enter a password for the new account or 'C' to cancel the account creation\n");
 		password1 = key_inp.nextLine();
-		/* */
 		if (password1.length() < 8) {
-			switch(password.toUpperCase()) {
+			switch(password1.toUpperCase()) {
 			case "C":
 				System.out.println("Account creation canceled, you will be returned to the home screen");break;
 			default:
@@ -112,11 +111,11 @@ public class LoginScreen {
 			System.out.println("Please reenter the password to confirm\n");
 			password2 = key_inp.nextLine();			
 			if (password2.equals(password1)) {
-				System.out.println("The passwords you entered did not match. Please try again\n");
-				registerPasswordEntry();
+				System.out.println("Your account has been created. You can now log in\n");
 			}
 			else {
-				System.out.println("Your account has been created. You can now log in\n");
+				System.out.println("The passwords you entered did not match. Please try again\n");
+				registerPasswordEntry();
 			}
 		}
 	}
