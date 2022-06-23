@@ -14,12 +14,12 @@ public class LoginScreen {
 			System.out.println("Enter 'L' to login or 'R' to register\n");
 			command = key_inp.nextLine();
 			switch (command.toUpperCase()) {
-			case "L": 
-				login(); break;
-			case "R": 
-				register(); break;
-			default:
-				System.out.println("The command you entered is invalid\n");break;
+				case "L": 
+					login(); break;
+				case "R": 
+					register(); break;
+				default:
+					System.out.println("The command you entered is invalid\n");break;
 			}
 		}
 		BankHome bank = new BankHome(email);
@@ -29,26 +29,25 @@ public class LoginScreen {
 	/*Logging in to the app*/
 	private void login() {
 		/*Local Variables*/
-		Boolean loginSuccess = false, toHome = false;
+		Boolean toHome = false;
 		
 		/*Function*/
 		do {//Login Email Loop
 			System.out.println("Please enter your email or 'H' to go back\n");
 			email = key_inp.nextLine();
 			switch (email.toUpperCase()) {
-			case "H": 
-				toHome = true; break;
-			default:
-				switch(email) {
-				case("It exists"):
-					loginPasswordEntry();
-					toHome = true;break;
+				case "H": 
+					toHome = true; break;
 				default:
-					System.out.println("The email you entered does not have an account\n");
-					loginSuccess = false;break;
+					switch(email) {
+						case("It exists"):
+							loginPasswordEntry();
+							toHome = true;break;
+						default:
+							System.out.println("The email you entered does not have an account\n");break;
 				}break;	
 			}
-		}while(loginSuccess == false && toHome == false);
+		}while(toHome == false);
 	}
 	
 	/*Prompt for password and test validity*/
@@ -61,18 +60,18 @@ public class LoginScreen {
 			System.out.println("Please enter your password or 'H' to return to the home screen\n");
 			password = key_inp.nextLine();
 			switch(password.toUpperCase()) {
-			case("H"):
-				System.out.println("You will be returned to the home screen\n");
-				toHome = true; break;
-			default:
-				switch(password) {
-				case "Is correct":
-					System.out.println("You have gained access\n");
-					appAccess = true; 
+				case("H"):
+					System.out.println("You will be returned to the home screen\n");
 					toHome = true; break;
 				default:
-					System.out.println("The password you have entered is invalid\n");
-				}break;
+					switch(password) {
+						case "Is correct":
+							System.out.println("You have gained access\n");
+							appAccess = true; 
+							toHome = true; break;
+						default:
+							System.out.println("The password you have entered is invalid\n");
+					}break;
 			}
 		}while (toHome == false);
 	}
@@ -96,10 +95,10 @@ public class LoginScreen {
 			System.out.println("Enter 'Y' to confirm. All other commands will reset the name entry\n");
 			command = key_inp.nextLine();
 			switch(command.toUpperCase()) {
-			case "Y":
-				nameConfirm = true;break;
-			default:
-				nameConfirm = false;break;
+				case "Y":
+					nameConfirm = true;break;
+				default:
+					nameConfirm = false;break;
 			}
 		}while(nameConfirm == false);		
 		
@@ -111,19 +110,19 @@ public class LoginScreen {
 			try {//Testing email validity
 				if (email.contains("@") && email.substring(emailLength - 5).contains(".")) {//email has '@' and '.' towards the end
 					switch(email) {
-					case "Already@exists.":
-						System.out.println("A user account has already been linked to this email. Please use a different email or log in\n");break;
-					default://Password
-						registerPasswordEntry();
-						toHome = true; break;
+						case "Already@exists.":
+							System.out.println("A user account has already been linked to this email. Please use a different email or log in\n");break;
+						default://Password
+							registerPasswordEntry();
+							toHome = true; break;
 					}
 				}
 				else {//Invalid email
 					switch(email.toUpperCase()) {
-					case "H":
-						toHome = true; break;
-					default:
-						System.out.println("The email you entered is invalid\n");break;
+						case "H":
+							toHome = true; break;
+						default:
+							System.out.println("The email you entered is invalid\n");break;
 					}
 				}
 			}
@@ -147,11 +146,11 @@ public class LoginScreen {
 			
 			if (password1.length() < 8) {//Invalid password entry
 				switch(password1.toUpperCase()) {
-				case "C":
-					System.out.println("User creation canceled, you will be returned to the home screen");
-					toHome = true; break;
-				default:
-					System.out.println("The password must be at least 8 characters long\n");break;
+					case "C":
+						System.out.println("User creation canceled, you will be returned to the home screen");
+						toHome = true; break;
+					default:
+						System.out.println("The password must be at least 8 characters long\n");break;
 				}
 			}
 			else { //Reenter password to confirm
