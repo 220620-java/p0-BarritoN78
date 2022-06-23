@@ -1,35 +1,129 @@
 package com.revature.p0.main;
 import java.util.Scanner;
+import java.util.Random;
 public class BankHome {
 	/*Class Variables*/
 	private double balance = 420.69;
 	private double newBalance = 0;
 	private static Scanner key_inp = new Scanner(System.in);
-	private String name = "user";
+	private String name = "user", command;
 	
 	/*Constructor*/
 	public BankHome(String email) {
-		//name = SELECT name FROM bank WHERE PK == email
-		//balance = SELECT balance FROM bank WHERE PK == email
+		//TODO name = SELECT name FROM users WHERE PK == email
 		System.out.println("Hello " + name + ",");
-		transBegin();
+		accountSelect();
 		key_inp.close();
+	}
+	
+	/*Allow the user to choose the account to access or create a new one*/
+	private void accountSelect() {
+		/*Local Variables*/
+		Boolean logout = false;
+		
+		/*Function*/
+		do {//Bank home loop
+			System.out.println("Enter 'S' to select an account to view, 'C' to create a new account, or 'L' to logout\n");
+			command = key_inp.nextLine();
+			switch(command.toUpperCase()) {
+				case "S":
+					transBegin();break;
+				case "C":
+					accountCreate();break;
+				case "L":
+					System.out.println("You will now be logged out\n");
+					logout = true;break;
+				default:
+					System.out.println("The command you entered is invalid\n");break;
+			}
+		}while (logout == false);
+	}
+	
+	/*Creates a new finance account for the user*/
+	private void accountCreate() {
+		/*Local Variables*/
+		String type, accName, accID;
+		Boolean cancel = false, typeGiven = false, nameGiven = false;
+		
+		/*Function*/
+		do {//Account Type Loop
+		System.out.println("Select the account type: 'C': Checking, 'S': Savings, 'J': Joint. 'X' to cancel\n");
+		command = key_inp.nextLine();
+		switch(command.toUpperCase()) {
+			case "C","S","J":
+				type = command.toUpperCase();
+				typeGiven = true;break;
+			case "X":
+				cancel = true;break;
+			default:
+				System.out.println("The command you entered is invalid\n");break;
+			}
+		}while(cancel == false && typeGiven == false);
+		if (typeGiven) {//Account was given a type/Was not canceled
+			do {//Account Name Loop
+				System.out.println("Write a name to help you identify the account later. 'X' to cancel\n");
+				accName = key_inp.nextLine();
+				switch(accName.toUpperCase()) {
+					case "X":
+						cancel = true;break;
+					default://Name Validation
+						if (accName.length() < 25) {//Name is less than 25 characters
+							if ((accName.contains("!") || accName.contains(";")) == false) {//Name does not contain illegal symbol. No SQL injection plz
+								accID = accountIDCreate();
+								//TODO INSERT accID, accName, type, 0 TO bank
+								nameGiven = true;
+							}
+							else {
+								System.out.println("Your name contain an illegal symbol. '!' and ';' cannot be used\n");
+							}
+						}
+						else {
+							System.out.println("Please limit the name to 25 characters\n");
+						}
+				}
+			
+			}while(nameGiven == false && cancel == false);
+			}
+	}
+	
+	/*Creates a new account ID thru RNG and references the DB*/
+	private String accountIDCreate() {
+		/*Local Variables*/
+		String newID;
+		Random rng = new Random();
+		Boolean idExists = true;
+		int sqlResult = 0;
+		
+		/*Function*/
+		do {//RNG for New ID loop
+			newID = Integer.toString(rng.nextInt(0, 100000000));
+			if(newID.length() < 8) {//Adds leading zeros if the account ID is less than 8 long
+				for (int c = 8 - newID.length(); c < 8; c++ ) {
+					newID = "0" + newID;
+				}
+				//TODO SELECT count(*) FROM accounts WHERE accID = newID
+				if(sqlResult > 0) {
+					idExists = false;
+				}
+			}
+		}while(idExists);
+		return newID;
 	}
 	
 	/*Tell the user their balance and ask what transaction they want to perform*/
 	private void transBegin() {
 		/*Local Variables*/
-		String command;
 		Boolean exit = false;
 		
 		/*Function*/
 		do {//Transaction Loop
+			//TODO balance = SELECT balance FROM bank WHERE PK == email
 			System.out.println("Your current balance is $" + balance + "\n");
 			System.out.println("Enter 'W' to withdraw or 'D' to deposit\n");
 			command = key_inp.nextLine().toUpperCase();
 			switch (command) {
 				case "W", "D":
-					transaction(command);break;
+					transaction();break;
 				default:
 					System.out.println("The command you entered is invalid\n");break;
 			}
@@ -39,10 +133,10 @@ public class BankHome {
 				case "Y":
 					exit = false;break;
 				case "N":
-					System.out.println("You will now be logged out");
+					System.out.println("You will now be logged out\n");
 					exit = true;break;
 				default:
-					System.out.println("The command you entered is invalid");break;
+					System.out.println("The command you entered is invalid\n");break;
 			}
 		
 		}
@@ -52,7 +146,7 @@ public class BankHome {
 	
 	
 	/*Perform deposits or withdraws based on the passed command*/
-	private void transaction(String command) {
+	private void transaction() {
 		/*Local Variables*/
 		double amount = 0.0;
 		

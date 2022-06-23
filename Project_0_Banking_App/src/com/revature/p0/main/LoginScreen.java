@@ -160,7 +160,7 @@ public class LoginScreen {
 				if (password2.equals(password1)) {//Matched
 					System.out.println("Your user account has been created. You can now log in\n");
 					toHome = true;
-					//INSERT email, password, TO users
+					//TODO INSERT email, password, TO users
 				}
 				else {//Didn't match
 					System.out.println("The passwords you entered did not match. Please try again\n");
