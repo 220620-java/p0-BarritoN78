@@ -1,11 +1,16 @@
 /*create schema project_0_banking_app;
 
+--tbl_users DDL
 create table tbl_Users(
 	userID serial primary key,
 	userEmail varchar(30),
 	userPassword varchar(30)
 );
 
+alter table tbl_users
+	alter column useremail type varchar(50);
+
+--tbl_accounts DDL
 create table tbl_Accounts(
 	accountID serial primary key,
 	accountType varchar(25),
@@ -14,6 +19,7 @@ create table tbl_Accounts(
 	userID integer references tbl_Users
 );
 
+--tbl_transactions DDL
 create table tbl_Transactions(
 	transID serial primary key,
 	transType varchar(25),
@@ -22,3 +28,4 @@ create table tbl_Transactions(
 	transNotes text,
 	accountID integer references tbl_Accounts
 ); */
+
