@@ -1,4 +1,5 @@
 package com.revature.p0;
+import java.sql.Connection;
 import java.util.Scanner;
 public class LoginScreen {
 
@@ -6,16 +7,17 @@ public class LoginScreen {
 	private String email, password, command;
 	private Boolean appAccess = false;
 	private static Scanner key_inp = new Scanner(System.in);
+	protected static Connection getConnection(String url, String name, String password)
 	
 	/*Constructor*/
 	public LoginScreen() {
-		while (appAccess == false)
+		while (getAppAccess() == false)
 		{
 			System.out.println("Enter 'L' to login or 'R' to register\n");
 			command = key_inp.nextLine();
 			switch (command.toUpperCase()) {
 				case "L": 
-					login(); break;
+					setAppAccess(login()); break;
 				case "R": 
 					register(); break;
 				default:
@@ -27,33 +29,36 @@ public class LoginScreen {
 	}
 	
 	/*Logging in to the app*/
-	private void login() {
+	protected Boolean login() {
 		/*Local Variables*/
-		Boolean toHome = false;
+		Boolean toHome = false, verdict = false;
 		
 		/*Function*/
 		do {//Login Email Loop
 			System.out.println("Please enter your email or 'H' to go back\n");
 			email = key_inp.nextLine();
 			switch (email.toUpperCase()) {
-				case "H": 
+				case "H":
+					verdict = false;
 					toHome = true; break;
 				default:
 					switch(email) {
 						case("It exists"):
-							loginPasswordEntry();
+							verdict = loginPasswordEntry();
 							toHome = true;break;
 						default:
+							verdict = false;
 							System.out.println("The email you entered does not have an account\n");break;
 				}break;	
 			}
 		}while(toHome == false);
+		return verdict;
 	}
 	
 	/*Prompt for password and test validity*/
-	private void loginPasswordEntry() {
+	protected Boolean loginPasswordEntry() {
 		/*Local Variables*/
-		Boolean toHome = false;
+		Boolean toHome = false, verdict = false;
 		
 		/*Function*/
 		do {//Login Password Loop
@@ -62,22 +67,26 @@ public class LoginScreen {
 			switch(password.toUpperCase()) {
 				case("H"):
 					System.out.println("You will be returned to the home screen\n");
+				verdict = false;
 					toHome = true; break;
 				default:
 					switch(password) {
 						case "Is correct":
 							System.out.println("You have gained access\n");
-							appAccess = true; 
+							setAppAccess(true); 
+							verdict = true;
 							toHome = true; break;
 						default:
+							verdict = false;
 							System.out.println("The password you have entered is invalid\n");
 					}break;
 			}
 		}while (toHome == false);
+		return verdict;
 	}
 	
 	/*Registering a new user for the app*/
-	private void register() {
+	protected void register() {
 		/*Local Variables*/
 		int emailLength;
 		Boolean toHome = false, nameConfirm = false;
@@ -134,7 +143,7 @@ public class LoginScreen {
 	}
 	
 	/*Prompt for a new password and then confirm it*/
-	public void registerPasswordEntry() {
+	protected void registerPasswordEntry() {
 		/*Local Variables*/
 		String password1, password2;
 		Boolean toHome = false;
@@ -167,5 +176,13 @@ public class LoginScreen {
 				}
 			}
 		}while(toHome == false);
+	}
+
+	public Boolean getAppAccess() {
+		return appAccess;
+	}
+
+	public void setAppAccess(Boolean appAccess) {
+		this.appAccess = appAccess;
 	}
 }
