@@ -1,3 +1,4 @@
+--All initial inserts are random data from mockaroo
 --tbl_users data
 /*insert into tbl_users (userID, userEmail, userPassword) values (default, 'bfallowfield0@ucoz.ru', 'ILHPHSYOqzL4');
 insert into tbl_users (userID, userEmail, userPassword) values (default, 'ahowselee1@lulu.com', 'bpdt2UB62T');
