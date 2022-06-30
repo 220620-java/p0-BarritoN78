@@ -3,128 +3,116 @@ package com.revature.p0;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class LoginTest {
-	
+@TestInstance(Lifecycle.PER_CLASS)
+public class LoginTest{
+	private InputStream sysInbackup = System.in;
+	private ByteArrayInputStream input;
 	@InjectMocks
 	@Spy
 	private LoginScreen lScreen;
 	
 	@Mock
 	private BankHome bHome;
-
-	@Test
-	//appAccess should be true if the login succeeds
-	public void testLScreenToLogin() {
-		/*Local Variables*/
-		InputStream sysInBackup = System.in;
-		ByteArrayInputStream replaceStream = new ByteArrayInputStream("L".getBytes());
-		
-		/*Mocks*/
-		Mockito.doReturn(true).when(lScreen).login();
-		Mockito.doNothing().when(bHome);
-		
-		/*Begin Test*/
-		System.setIn(replaceStream);
+	
+	@BeforeAll
+	public void beforeAll() {
 		lScreen = new LoginScreen();
-		
-		/*Assertion*/
-		Assertions.assertEquals(true, lScreen.getAppAccess());
+		MockitoAnnotations.openMocks(this);
+	}
+	
+	@BeforeEach
+	public void beforeEach() {
+		lScreen.setAppAccess(false);
 	}
 	
 	@Test
-	//appAccess should remain false regardless of register()
-	public void testLScreentoRegister() {
-		/*Local Variables*/
-		InputStream sysInBackup = System.in;
-		ByteArrayInputStream replaceStream = new ByteArrayInputStream("R".getBytes());
+	/*Should equal true if the password is correct*/
+	public void testLoginPasswordEntryPass() {
+		/*Variables*/
+		Boolean result;
 		
-		/*Mocks*/
-		Mockito.doReturn(false).when(lScreen).register();
+		/*Setup*/
+		input = new ByteArrayInputStream("Is correct".getBytes());
+		System.setIn(input);
 		
-		/*Begin Test*/
-		System.setIn(replaceStream);
-		lScreen = new LoginScreen();
+		/*Test*/
+		result = lScreen.loginPasswordEntry();
 		
 		/*Assertion*/
-		Assertions.assertEquals(false, lScreen.getAppAccess());
+		Assertions.assertEquals(true, result);
 	}
 	
 	@Test
-	//appAccess should remain false when an invalid command is given
-	public void testLScreenInvalid() {
-		/*Local Variables*/
-		InputStream sysInBackup = System.in;
-		ByteArrayInputStream replaceStream = new ByteArrayInputStream("Invalid command".getBytes());
+	@Disabled
+	/*Should equal false for an incorrect password*/
+	//Activate test line in LoginScreen to break out of loop
+	public void testLoginPasswordEntryFail() {
+		/*Variables*/
+		Boolean result;
 		
-		/*Begin Test*/
-		System.setIn(replaceStream);
-		lScreen = new LoginScreen();
+		/*Setup*/
+		input = new ByteArrayInputStream(("Random String").getBytes());
+		System.setIn(input);
 		
-		/*Assertion*/
-		Assertions.assertEquals(false, lScreen.getAppAccess());
-	}
-
-	@Test
-	//appAccess should return true if email exists and password is correct
-	public void testLoginToLoginPasswordEntry() {
-		/*Local Variables*/
-		InputStream sysInBackup = System.in;
-		ByteArrayInputStream replaceStream = new ByteArrayInputStream("L\nIt exists".getBytes());
-		
-		/*Mocks*/
-		Mockito.doReturn(true).when(lScreen).loginPasswordEntry();
-		Mockito.doNothing().when(bHome);
-		
-		/*Begin Test*/
-		System.setIn(replaceStream);
-		lScreen = new LoginScreen();
+		/*Test*/
+		result = lScreen.loginPasswordEntry();
 		
 		/*Assertion*/
-		Assertions.assertEquals(true, lScreen.getAppAccess());
+		Assertions.assertEquals(false, result);		
 	}
 	
 	@Test
-	//appAccess should remain false if email the user returns to the home screen using the 'H' command
-	public void testLoginToHome() {
-		/*Local Variables*/
-		InputStream sysInBackup = System.in;
-		ByteArrayInputStream replaceStream = new ByteArrayInputStream("L\nH".getBytes());
+	/*Should equal false if the user decides to return to the home screen*/
+	public void testLoginPasswordEntryHome() {
+		/*Variables*/
+		Boolean result;
 		
-		/*Begin Test*/
-		System.setIn(replaceStream);
-		lScreen = new LoginScreen();
+		/*Setup*/
+		input = new ByteArrayInputStream("h".getBytes());
+		System.setIn(input);
+		
+		/*Test*/
+		result = lScreen.loginPasswordEntry();
 		
 		/*Assertion*/
-		Assertions.assertEquals(false, lScreen.getAppAccess());
+		Assertions.assertEquals(false, result);
 	}
 	
 	@Test
-	//appAccess should return true if the password is correct
-	public void testLoginPasswordEntrySuccess() {
-		/*Local Variables*/
-		InputStream sysInBackup = System.in;
-		ByteArrayInputStream replaceStream = new ByteArrayInputStream("L\nIs correct".getBytes());
+	/*Should equal true if the user enters the same password twice*/
+	public void testRegisterPasswordEntryPass() {
+		/*Variables*/
+		Boolean result;
 		
 		/*Mocks*/
-		Mockito.doReturn(true).when(lScreen).loginPasswordEntry();
-		Mockito.doNothing().when(bHome);
+		Mockito.when(lScreen.getInput()).thenReturn("MyPassword");
 		
-		/*Begin Test*/
-		System.setIn(replaceStream);
-		lScreen = new LoginScreen();
+		/*Test*/
+		result = lScreen.registerPasswordEntry();
 		
 		/*Assertion*/
-		Assertions.assertEquals(true, lScreen.getAppAccess());
+		Assertions.assertEquals(true, result);
+	}
+	
+	@AfterAll
+	public void afterAll() {
+		System.setIn(sysInbackup);
 	}
 }

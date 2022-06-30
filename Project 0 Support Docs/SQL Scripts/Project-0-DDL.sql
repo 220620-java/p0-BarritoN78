@@ -10,6 +10,11 @@ create table tbl_Users(
 alter table tbl_users
 	alter column useremail type varchar(50);
 
+alter table tbl_users 
+	add column userFName varchar(25),
+	add column userMInit char(1),
+	add column userLName varchar(25);
+
 --tbl_accounts DDL
 create table tbl_Accounts(
 	accountID serial primary key,

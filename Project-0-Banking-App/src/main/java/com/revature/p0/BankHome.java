@@ -1,23 +1,16 @@
 package com.revature.p0;
 import java.util.Scanner;
 import java.util.Random;
-public class BankHome {
+public class BankHome  extends P0Main{
 	/*Class Variables*/
 	private double balance = 420.69;
 	private double newBalance = 0;
-	private static Scanner key_inp = new Scanner(System.in);
 	private String name = "user", command;
 	
-	/*Constructor*/
-	public BankHome(String email) {
+	/*Allow the user to choose the account to access or create a new one*/
+	protected Boolean accountSelect(String email) {
 		//TODO name = SELECT name FROM users WHERE PK == email
 		System.out.println("Hello " + name + ",");
-		accountSelect();
-		key_inp.close();
-	}
-	
-	/*Allow the user to choose the account to access or create a new one*/
-	private void accountSelect() {
 		/*Local Variables*/
 		Boolean logout = false;
 		String accID = "";
@@ -25,7 +18,7 @@ public class BankHome {
 		/*Function*/
 		do {//Bank home loop
 			System.out.println("Enter 'S' to select an account to view, 'C' to create a new account, or 'L' to logout\n");
-			command = key_inp.nextLine();
+			command = getInput();
 			switch(command.toUpperCase()) {
 				case "S":
 					transBegin(accID);break;
@@ -38,6 +31,7 @@ public class BankHome {
 					System.out.println("The command you entered is invalid\n");break;
 			}
 		}while (logout == false);
+		return logout;
 	}
 	
 	/*Creates a new finance account for the user*/
@@ -49,7 +43,7 @@ public class BankHome {
 		/*Function*/
 		do {//Account Type Loop
 		System.out.println("Select the account type: 'C': Checking, 'S': Savings, 'J': Joint. 'X' to cancel\n");
-		command = key_inp.nextLine();
+		command = getInput();
 		switch(command.toUpperCase()) {
 			case "C","S","J":
 				type = command.toUpperCase();
@@ -63,7 +57,7 @@ public class BankHome {
 		if (typeGiven) {//Account was given a type/Was not canceled
 			do {//Account Name Loop
 				System.out.println("Write a name to help you identify the account later. 'X' to cancel\n");
-				accName = key_inp.nextLine();
+				accName = getInput();
 				switch(accName.toUpperCase()) {
 					case "X":
 						cancel = true;break;
@@ -121,7 +115,7 @@ public class BankHome {
 			//TODO balance = SELECT balance FROM bank WHERE PK == email && AccountID == accID
 			System.out.println("Your current balance is $" + balance + "\n");
 			System.out.println("Enter 'W' to withdraw, 'D' to deposit, or 'H' to view this account's history\n");
-			command = key_inp.nextLine().toUpperCase();
+			command = getInput().toUpperCase();
 			switch (command) {
 				case "W", "D":
 					transaction();break;
@@ -131,7 +125,7 @@ public class BankHome {
 					System.out.println("The command you entered is invalid\n");break;
 			}
 			System.out.println("Would you like to perform another transaction? 'Y' or 'N'\n");
-			command = key_inp.nextLine().toUpperCase();
+			command = getInput().toUpperCase();
 			switch(command) {
 				case "Y":
 					exit = false;break;
@@ -161,7 +155,7 @@ public class BankHome {
 				System.out.println("Please enter the amount you would like to deposit\n");break;
 		}
 		try {
-			amount = Double.parseDouble(key_inp.nextLine());
+			amount = Double.parseDouble(getInput());
 			if (amount <= 0)
 			{
 				System.out.println("The amount you have entered is invalid\n");
