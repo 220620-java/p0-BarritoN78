@@ -5,14 +5,12 @@ public class LoginScreen  extends P0Main{
 	private String command = "";
 	private Boolean appAccess = false, close = false;
 	private BankHome bank;
-	private Login l;
-	private Register r;
+	private Login l = new Login();
+	private Register r = new Register();;
 	
 	/*Constructor*/
 	public LoginScreen() {
 		bank = new BankHome();
-		l = new Login();
-		r = new Register();
 	}
 	/*Select to login, register or close*/
 	public  void home() {
@@ -27,7 +25,7 @@ public class LoginScreen  extends P0Main{
 					r.register(); break;
 				case "C":
 					close = true;
-					System.out.println("The program will now close");
+					System.out.println("The program will now close");break;
 				default:
 					System.out.println("The command you entered is invalid\n");break;
 			}

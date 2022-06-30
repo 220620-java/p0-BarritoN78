@@ -24,7 +24,7 @@ public class SQLConnect {
 		
 		/*Function*/
 		try {
-			Class.forName("org.postgres.Driver");
+			Class.forName("org.postgresql.Driver");
 			url = System.getenv("REV_P0_DBURL");
 			username = System.getenv("REV_P0_DBUN");
 			password = System.getenv("REV_P0_DBPW");

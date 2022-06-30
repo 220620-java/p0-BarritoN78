@@ -1,6 +1,6 @@
 package com.revature.p0;
 
-public class Login extends LoginScreen {
+public class Login extends P0Main{
 
 	private String email = "", password = "";
 

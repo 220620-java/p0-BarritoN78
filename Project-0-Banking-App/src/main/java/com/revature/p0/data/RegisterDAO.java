@@ -5,15 +5,38 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.revature.p0.Register;
-import com.revature.p0.util.List;
 import com.revature.p0.util.SQLConnect;
-import com.revature.p0.util.ArrayList;
 
 public class RegisterDAO {
 	private SQLConnect sqlConn = SQLConnect.getSQLConnect();
 	
 	public Register insert(Register reg) {
-		// TODO Auto-generated method stub
+		/* Local Variables */
+		String sql = "insert into tbl_users(userid, useremail, userpassword, userfname, userminit, userlname) "
+				+ "values(default, "
+				+ "?, "
+				+ "?, "
+				+ "?, "
+				+ "?, "
+				+ "?, ";
+
+		/* Function */
+		try (Connection conn = sqlConn.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, reg.getEmail());
+			stmt.setString(2, reg.getPassword());
+			stmt.setString(3, reg.getFName());
+			stmt.setString(4, reg.getMInit());
+			stmt.setString(5, reg.getLName());
+			stmt.executeQuery();
+			conn.commit();
+			conn.close();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		/*Output*/	
 		return reg;
 	}
 

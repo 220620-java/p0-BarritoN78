@@ -1,5 +1,4 @@
 package com.revature.p0;
-import java.util.Scanner;
 import java.util.Random;
 public class BankHome  extends P0Main{
 	/*Class Variables*/
