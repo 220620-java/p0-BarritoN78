@@ -32,5 +32,9 @@ create table tbl_Transactions(
 	transPostBalance decimal,
 	transNotes text,
 	accountID integer references tbl_Accounts
-); */
+); 
+
+alter table tbl_transactions
+	add column transDate date;*/
+
 

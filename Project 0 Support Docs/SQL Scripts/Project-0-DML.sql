@@ -313,4 +313,5 @@ insert into tbl_transactions (transType, transPreBalance, transPostBalance, tran
 
 update tbl_transactions t set transpostbalance = (select accountbalance from tbl_accounts a where a.accountid = t.accountid);
 update tbl_transactions t set transtype = 'Withdraw' where transpostbalance < transprebalance;
-update tbl_transactions t set transtype = 'Deposit' where transpostbalance > transprebalance;*/
+update tbl_transactions t set transtype = 'Deposit' where transpostbalance > transprebalance;
+update tbl_transactions set transdate = '1969-04-20';*/
