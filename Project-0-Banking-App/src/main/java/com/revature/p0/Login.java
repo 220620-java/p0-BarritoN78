@@ -1,13 +1,17 @@
 package com.revature.p0;
 
+import com.revature.p0.data.LoginDAO;
+
 public class Login extends P0Main{
 
 	private String email = "", password = "";
+	private LoginDAO sql = new LoginDAO();
 
 	/* Logging in to the app */
 	protected Boolean login() {
 		/* Local Variables */
 		Boolean toHome = false, verdict = false;
+		Login test;
 
 		/* Function */
 		do {// Login Email Loop
@@ -19,14 +23,15 @@ public class Login extends P0Main{
 				toHome = true;
 				break;
 			default:
-				switch (email) {
-				case ("It exists"):
-					verdict = loginPasswordEntry();
-					toHome = true;
-					break;
-				default:
+				test = sql.findByEmail(email);
+				switch (test.getPassword()) {
+				case (""):
 					verdict = false;
 					System.out.println("The email you entered does not have an account\n");
+					break;
+				default:
+					verdict = loginPasswordEntry(test.getPassword());
+					toHome = true;
 					break;
 				}
 				break;
@@ -36,7 +41,7 @@ public class Login extends P0Main{
 	}
 
 	/* Prompt for password and test validity */
-	protected Boolean loginPasswordEntry() {
+	protected Boolean loginPasswordEntry(String test) {
 		/* Local Variables */
 		Boolean toHome = false, verdict = false;
 
@@ -51,18 +56,15 @@ public class Login extends P0Main{
 				toHome = true;
 				break;
 			default:
-				switch (password) {
-				case "Is correct":
+				if (test.equals(password)) {
 					System.out.println("You have gained access\n");
 					verdict = true;
 					toHome = true;
-					break;
-				default:
+				}else {
 					// toHome = true;//Test Only
 					verdict = false;
 					System.out.println("The password you have entered is invalid\n");
 				}
-				break;
 			}
 		} while (toHome == false);
 		return verdict;
