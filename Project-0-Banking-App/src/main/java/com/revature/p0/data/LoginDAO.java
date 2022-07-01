@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.revature.p0.Login;
-import com.revature.p0.util.List;
 import com.revature.p0.util.SQLConnect;
-import com.revature.p0.util.ArrayList;
 
 public class LoginDAO {
 	private SQLConnect sqlConn = SQLConnect.getSQLConnect();
@@ -16,7 +14,7 @@ public class LoginDAO {
 		/* Local Variables */
 		Login log = new Login();
 		ResultSet result = null;
-		String sql = "select userpassword from tbl_users where useremail = ?";
+		String sql = "select userid, userfname, userpassword from tbl_users where useremail = ?";
 
 		/* Function */
 		try (Connection conn = sqlConn.getConnection()) {
@@ -24,7 +22,9 @@ public class LoginDAO {
 			stmt.setString(1, email);
 			result = stmt.executeQuery();
 			if (result.next()) {
-				log.setPassword(result.getString(1));
+				log.setUserID(result.getInt("userid"));
+				log.setFName(result.getString("userfname"));
+				log.setPassword(result.getString("userpassword"));
 			}
 		} 
 		catch (Exception e) {

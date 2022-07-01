@@ -19,10 +19,11 @@ public class RegisterDAO {
 				+ "?, "
 				+ "?, "
 				+ "?, ";
+		String[] keys = {"userid"};
 
 		/* Function */
 		try (Connection conn = sqlConn.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql, keys);
 			stmt.setString(1, reg.getEmail());
 			stmt.setString(2, reg.getPassword());
 			stmt.setString(3, reg.getFName());

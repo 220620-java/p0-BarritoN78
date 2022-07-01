@@ -22,7 +22,7 @@ public class TransactionDAO{
 	        +" ?";
 		String[] keys = {"transid"};
 		try(Connection conn = sqlConn.getConnection()){
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql,keys);
 
 		}
 		catch(Exception e) {
@@ -32,7 +32,7 @@ public class TransactionDAO{
 	}
 
 	public List<Transaction> findByID(int id) {
-		List<Transaction> list = new ArrayList();
+		List<Transaction> list = new ArrayList<Transaction>();
 		return list;
 	}
 }

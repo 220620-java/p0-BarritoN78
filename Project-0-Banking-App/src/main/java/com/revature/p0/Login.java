@@ -4,7 +4,8 @@ import com.revature.p0.data.LoginDAO;
 
 public class Login extends P0Main{
 
-	private String email = "", password = "";
+	private String email = "", password = "", fName = "";
+	private int userID = -1;
 	private LoginDAO sql = new LoginDAO();
 
 	/* Logging in to the app */
@@ -30,6 +31,8 @@ public class Login extends P0Main{
 					System.out.println("The email you entered does not have an account\n");
 					break;
 				default:
+					this.setUserID(test.getUserID());
+					this.setFName(test.getFName());
 					verdict = loginPasswordEntry(test.getPassword());
 					toHome = true;
 					break;
@@ -74,6 +77,14 @@ public class Login extends P0Main{
 		return email;
 	}
 
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -84,5 +95,13 @@ public class Login extends P0Main{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getFName() {
+		return fName;
+	}
+
+	public void setFName(String fName) {
+		this.fName = fName;
 	}
 }

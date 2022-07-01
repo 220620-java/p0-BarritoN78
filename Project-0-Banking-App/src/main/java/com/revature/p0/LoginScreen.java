@@ -31,7 +31,7 @@ public class LoginScreen  extends P0Main{
 			}
 		}
 		if (getAppAccess() == true) {
-			bank.accountSelect(l.getEmail());;
+			bank.home(l.getUserID(),l.getEmail(), l.getFName());
 		}
 	}
 

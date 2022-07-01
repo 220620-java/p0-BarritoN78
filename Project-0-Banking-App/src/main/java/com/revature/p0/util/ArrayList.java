@@ -1,13 +1,13 @@
 package com.revature.p0.util;
 
-public class ArrayList implements List {
+public class ArrayList<T> implements List<T> {
 	/*Class Variables*/
-	Object[] arrList = new Object[10];
-	Object[] arrListTemp;
+	T[] arrList = (T[]) new Object[10];
+	T[] arrListTemp;
 
 	/*Add a new object to the list*/
 	@Override
-	public void add(Object obj) {
+	public void add(T obj) {
 		/*Local Variables*/
 		Boolean emptyFound = false;
 		int index = 0;
@@ -28,16 +28,16 @@ public class ArrayList implements List {
 				arrList[arrList.length - 1] = obj;
 			}
 			else {
-				arrListTemp = new Object[arrList.length + 1];
+				arrListTemp = (T[]) new Object[arrList.length + 1];
 				index = 0;
-				for(Object o : arrList)
+				for(T o : arrList)
 				{
 					arrListTemp[index] = o;
 					index++;
 				}
-				arrList = new Object[arrListTemp.length];
+				arrList = (T[]) new Object[arrListTemp.length];
 				index = 0;
-				for(Object o : arrListTemp)
+				for(T o : arrListTemp)
 				{
 					arrList[index] = o;
 					index++;
@@ -52,12 +52,12 @@ public class ArrayList implements List {
 	@Override
 	public Object get(int index) {
 		/*Local Variables*/
-		Object result;
+		T result;
 		String error = "The index you requested does not exist in the array";
 		
 		/*Function*/
 		if (index >= arrList.length || index < 0) {
-			result = error;
+			result = (T) error;
 		}
 		else {
 			result = arrList[index];
@@ -77,7 +77,7 @@ public class ArrayList implements List {
 			result = error;
 		}
 		else {
-			arrListTemp = new Object[arrList.length];
+			arrListTemp = (T[]) new Object[arrList.length];
 			for (Object o: arrList){
 				if (arrIndex >= omitIndex) {
 					arrListTemp[arrIndex] = arrList[arrIndex + 1];
@@ -115,6 +115,11 @@ public class ArrayList implements List {
 			}
 		}while (exitArr == false);
 		return index;
+	}
+	
+	@Override
+	public int length() {
+		return arrList.length;
 	}
 
 }
