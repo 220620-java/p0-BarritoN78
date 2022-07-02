@@ -13,4 +13,14 @@ public class P0Main {
 		input = key_inp.nextLine().toString();
 		return input;
 	}
+	
+	/*Adds spaces to a string to make it a certain length. Useful for displaying data in command line*/
+	public static String stringPadder(String input, int desiredLength) {
+		int length = input.length(), loop = 0;
+		while (loop < (desiredLength - length)) {
+			input += " ";
+			loop++;
+		}
+		return input;
+	}
 }

@@ -29,8 +29,7 @@ public class RegisterDAO {
 			stmt.setString(3, reg.getFName());
 			stmt.setString(4, reg.getMInit());
 			stmt.setString(5, reg.getLName());
-			stmt.executeQuery();
-			conn.commit();
+			stmt.executeUpdate();
 			conn.close();
 		} 
 		catch (Exception e) {
@@ -56,6 +55,7 @@ public class RegisterDAO {
 			if (result.next()) {
 				records = result.getInt("count");
 			}
+			conn.close();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();

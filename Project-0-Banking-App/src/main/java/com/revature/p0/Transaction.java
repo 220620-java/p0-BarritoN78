@@ -1,15 +1,33 @@
 package com.revature.p0;
 
+import com.revature.p0.data.AccountDAO;
+import com.revature.p0.data.TransactionDAO;
+import com.revature.p0.util.List;
+import com.revature.p0.util.ArrayList;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Transaction extends P0Main{
 	/*Class Variables*/
+	private TransactionDAO sql = new TransactionDAO();
+	private AccountDAO accSQL = new AccountDAO();
 	private double accountBal = 0, newBal = 0;
-	private int accID = -1;
-	private String command = "", notes = "", type = "", date = "";
+	private int accID = -1, transID = -1;
+	private String command = "", notes = "", type = "";
+	LocalDate date = LocalDate.now();
 	
-	public Transaction() {
-		
+	/*Constructor: For data collection*/
+	public Transaction(int accIDLoc) {
+		setAccID(accIDLoc);
 	}
 	
+	/*Constructor: For user functions*/
+	public Transaction(int accIDLoc, double accBal) {
+		setAccountBal(accBal);
+		setAccID(accIDLoc);
+	}
+
 	/*Tell the user their accountBal and ask what transaction they want to perform*/
 	protected void transBegin() {
 		/*Local Variables*/
@@ -17,8 +35,7 @@ public class Transaction extends P0Main{
 		
 		/*Function*/
 		do {//Transaction Loop
-			//TODO accountBal = SELECT accountBal FROM bank WHERE PK == email && AccountID == accID
-			System.out.println("Your current accountBal is $" + accountBal + "\n");
+			System.out.println("Your current balance is $" + accountBal + "\n");
 			System.out.println("Enter 'W' to withdraw, 'D' to deposit, or 'H' to view this account's history\n");
 			command = getInput().toUpperCase();
 			switch (command) {
@@ -29,13 +46,13 @@ public class Transaction extends P0Main{
 				default:
 					System.out.println("The command you entered is invalid\n");break;
 			}
-			System.out.println("Would you like to perform another transaction? 'Y' or 'N'\n");
+			System.out.println("Would you like to perform another transaction with this account? 'Y' or 'N'\n");
 			command = getInput().toUpperCase();
 			switch(command) {
 				case "Y":
 					exit = false;break;
 				case "N":
-					System.out.println("You will now be logged out\n");
+					System.out.println("You have been returned to the account selection screen\n");
 					exit = true;break;
 				default:
 					System.out.println("The command you entered is invalid\n");break;
@@ -51,6 +68,7 @@ public class Transaction extends P0Main{
 	private void transaction() {
 		/*Local Variables*/
 		double amount = 0.0;
+		Transaction test;
 		
 		/*Function*/
 		switch(command) {
@@ -68,17 +86,36 @@ public class Transaction extends P0Main{
 			else {
 				switch(command) {
 					case "W": //Withdraw functions
+						setType("Withdraw");
 						if(accountBal < amount) {
 							System.out.println("We are unable to process the request due to a lack of funds\n");
+							setNotes("A withdraw was attempted, but failed due to a lack of funds");
 							newBal = accountBal;
 						}
 						else {
+							setNotes("Normal Withdraw of $" + amount);
 							newBal = accountBal - amount;
 						}break;
 					case "D": //Deposit functions
+						setType("Deposit");
+						setNotes("Normal Deposit of $" + amount);
 						newBal = accountBal + amount;break;
 				}
-				System.out.println("Your new accountBal is $" + Double.toString(newBal) + "\n");
+				test = sql.insert(this);
+				if (test != null) {
+					if(accSQL.updateBalance(newBal, accID)) {
+						System.out.println("Transaction Successful");
+						System.out.println("Your new balance is $" + Double.toString(newBal) + "\n");
+						accountBal = newBal;
+					}
+					else {
+						System.out.println("Your account failed to update");
+					}
+				}
+				else {
+					System.out.println("The transaction failed to process");
+				}
+				System.out.println("Your new balance is $" + Double.toString(newBal) + "\n");
 				accountBal = newBal;
 			}
 		}
@@ -90,12 +127,36 @@ public class Transaction extends P0Main{
 	/*Retrieves a list of an account's transaction history*/
 	private void transHistory(int accID) {
 		/*Local Variables*/
-		String header = "Date:\t Type:\t Balance Before:\t Balance After:\t Comments:";
-		String transaction = "";
-		int records = 0, index = 0;
+		List<Transaction> list = new ArrayList<Transaction>();
+		Transaction current;
+		int size = 0, index = 0;
+		String result = "";
 		
-		/*Function*/		
-		System.out.println(header);
+		/*Function*/
+		list = sql.findByID(accID);
+		size = list.length();
+		while (index < size) {
+			if (list.get(index) != null) {
+				current = (Transaction) list.get(index);
+				result += "\n" + current.getDate().toString();
+				result += "  " + stringPadder(Integer.toString(current.getTransID()), 13);
+				result += "\t" + stringPadder(current.getType(), 8);
+				result += "\t" + stringPadder(Double.toString(current.getAccountBal()), 11);
+				result += "\t" + stringPadder(Double.toString(current.getNewBal()), 11);
+				result += "\t" + current.getNotes();
+			}
+			index++;
+		}
+		if (result == "") {
+			result = "No accounts were found";
+		}
+		else {
+			result = "Date\t    TransactionID\tType\t\tPre-Balance\tPost-Balance\tNotes"
+					+ "\n----\t    -------------\t----\t\t-----------\t------------\t----"
+					+ result + "\n";
+
+			System.out.println(result);
+		}
 	}
 	
 	/*Getters and Setters*/
@@ -159,16 +220,22 @@ public class Transaction extends P0Main{
 
 
 
-	public String getDate() {
-		return date;
+	public Date getDate() {
+		return Date.valueOf(date);
 	}
 
 
-
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
 
+	public int getTransID() {
+		return transID;
+	}
+
+	public void setTransID(int transID) {
+		this.transID = transID;
+	}
 
 }

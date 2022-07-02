@@ -39,6 +39,7 @@ public class AccountDAO {
 				
 				acc.add(in);
 			}
+			conn.close();
 			return acc;
 		} 
 		catch (Exception e) {
@@ -57,7 +58,7 @@ public class AccountDAO {
 				+ "accountbalance "
 				+ "from tbl_accounts "
 				+ "where accountid = ? "
-				+ "&& userid = ?";
+				+ "and userid = ?";
 		ResultSet result;
 		
 		/*Function*/
@@ -73,11 +74,14 @@ public class AccountDAO {
 				acc.setAccNotes(result.getString("accountnotes"));
 				acc.setAccBal(result.getDouble("accountbalance"));
 			}
+			conn.close();
 			return acc;
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+		finally {
 		}
 	}
 	
@@ -98,8 +102,7 @@ public class AccountDAO {
 			stmt.setString(2, acc.getAccNotes());
 			stmt.setDouble(3, acc.getAccBal());
 			stmt.setInt(4, acc.getUserID());
-			stmt.executeQuery();
-			conn.commit();
+			stmt.executeUpdate();
 			conn.close();
 			return acc;
 		} 
@@ -107,5 +110,30 @@ public class AccountDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public Boolean updateBalance(double newBal, int accID) {
+		/*Local Variables*/
+		Boolean SQLSuccess = false;
+		String sql = "update tbl_accounts set "
+				+ "accountbalance = ? "
+				+ "where accountid = ?";
+		
+		/*Function*/
+		try (Connection conn = sqlConn.getConnection()){
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setDouble(1, newBal);
+			stmt.setInt(2, accID);
+			stmt.executeUpdate();
+			conn.close();
+			SQLSuccess = true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			SQLSuccess = false;
+		}
+		
+		/*Output*/
+		return SQLSuccess;
 	}
 }

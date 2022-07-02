@@ -108,7 +108,7 @@ update tbl_users set useremail = 'barry912@revature.net', userPassword = 'P@5Sw0
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Face to face executive strategy', 1903.71, 239);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Cross-group dedicated core', 3397.81, 257);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Exclusive real-time open architecture', 7486.0, 306);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'User-centric 5th generation solution', 3603.83, 260);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'User-centric 5th generation solution', 3603.83, 260);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Object-based zero defect installation', 8548.74, 304);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Organic didactic Graphical User Interface', 4298.68, 297);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Customer-focused directional hierarchy', 7780.53, 296);
@@ -120,7 +120,7 @@ insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) val
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Diverse real-time application', 2051.4, 218);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Pre-emptive systematic matrix', 6144.97, 253);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Programmable client-driven ability', 6716.05, 297);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'De-engineered next generation open system', 3541.99, 229);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'De-engineered next generation open system', 3541.99, 229);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Enterprise-wide systemic benchmark', 9854.25, 213);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Distributed intermediate standardization', 8815.57, 275);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Multi-tiered grid-enabled neural-net', 1062.85, 218);
@@ -131,7 +131,7 @@ insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) val
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Multi-tiered tangible knowledge user', 4286.76, 265);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Future-proofed analyzing task-force', 9985.49, 287);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Assimilated motivating application', 8971.63, 259);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'Digitized radical artificial intelligence', 3837.44, 260);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Digitized radical artificial intelligence', 3837.44, 260);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Advanced bandwidth-monitored software', 5305.01, 244);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Right-sized analyzing pricing structure', 1300.13, 236);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Face to face 24/7 frame', 3963.4, 250);
@@ -142,7 +142,7 @@ insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) val
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Multi-layered multi-tasking contingency', 1904.27, 263);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Reduced static challenge', 6231.38, 272);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Customer-focused cohesive structure', 6504.9, 302);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'Versatile static website', 6173.42, 273);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Versatile static website', 6173.42, 273);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Optimized transitional contingency', 5785.92, 265);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Centralized needs-based installation', 5946.27, 230);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Cross-platform zero administration utilisation', 2588.29, 286);
@@ -156,7 +156,7 @@ insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) val
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Cross-group eco-centric moderator', 8837.26, 240);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Monitored mission-critical alliance', 6633.14, 259);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Enterprise-wide next generation portal', 3088.92, 283);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'Profound demand-driven monitoring', 9375.68, 244);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Profound demand-driven monitoring', 9375.68, 244);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Adaptive maximized Graphic Interface', 8024.05, 222);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Persistent composite conglomeration', 4500.96, 234);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Programmable empowering knowledge base', 8970.92, 299);
@@ -168,7 +168,7 @@ insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) val
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Integrated high-level internet solution', 2030.38, 222);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Business-focused directional infrastructure', 4367.43, 226);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Universal didactic database', 549.53, 245);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'Team-oriented local throughput', 6990.34, 217);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Team-oriented local throughput', 6990.34, 217);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Vision-oriented optimal hub', 3710.8, 231);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Diverse analyzing paradigm', 210.41, 289);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Seamless client-driven structure', 9786.85, 293);
@@ -181,7 +181,7 @@ insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) val
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Ergonomic holistic extranet', 5162.86, 307);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Reactive fresh-thinking capacity', 4226.17, 236);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Profound 24/7 instruction set', 4434.7, 303);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'Organized zero defect data-warehouse', 8106.18, 275);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Organized zero defect data-warehouse', 8106.18, 275);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Devolved analyzing encryption', 8787.35, 256);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Re-engineered human-resource flexibility', 9528.02, 283);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Cross-platform 24 hour info-mediaries', 9469.68, 274);
@@ -193,21 +193,20 @@ insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) val
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Ergonomic value-added matrix', 9805.33, 266);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'De-engineered static toolset', 6846.16, 231);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Profound zero defect focus group', 6609.17, 249);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'Synchronised responsive algorithm', 879.55, 251);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Synchronised responsive algorithm', 879.55, 251);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Organized asynchronous flexibility', 6441.03, 254);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Implemented systematic standardization', 1244.77, 275);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Re-contextualized tangible support', 2080.93, 267);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Versatile high-level success', 9420.35, 280);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Front-line scalable local area network', 5435.88, 232);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Extended cohesive pricing structure', 5693.19, 211);
-insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Joint', 'Re-contextualized dynamic adapter', 1118.52, 210);
+insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Re-contextualized dynamic adapter', 1118.52, 210);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Secured grid-enabled conglomeration', 562.24, 270);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Savings', 'Realigned multimedia strategy', 6274.5, 280);
 insert into tbl_accounts (accountType, accountNotes, accountBalance, userID) values ('Checking', 'Balanced clear-thinking open system', 2025.6, 286);
 
 update tbl_accounts set userid = 208 where userid = 222;
 update tbl_accounts set accountnotes = 'test account' where userid = 208;
-update tbl_accounts set accounttype = 'Joint' where accountid = 185;
 
 --tbl_transactions data
 insert into tbl_transactions (transType, transPreBalance, transPostBalance, transNotes, accountID) values (null, 1159.22, 1903.71, 'Quality-focused local initiative', 102);

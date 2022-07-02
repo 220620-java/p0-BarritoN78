@@ -46,7 +46,6 @@ public class ArrayList<T> implements List<T> {
 				emptyFound = true;
 			}
 		}while(emptyFound == false);
-		System.out.println("Your object has been added to the list");
 	}
 
 	@Override

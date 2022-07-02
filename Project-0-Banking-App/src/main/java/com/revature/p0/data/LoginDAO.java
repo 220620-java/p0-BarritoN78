@@ -26,6 +26,7 @@ public class LoginDAO {
 				log.setFName(result.getString("userfname"));
 				log.setPassword(result.getString("userpassword"));
 			}
+			conn.close();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();

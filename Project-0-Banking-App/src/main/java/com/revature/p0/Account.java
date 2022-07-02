@@ -100,7 +100,7 @@ public class Account extends P0Main {
 		Boolean accSelected = false;
 		List<Account> list = new ArrayList<Account>();
 		Account current;
-		int size = 0, records = 0, index = 0, inAccID = -1;
+		int size = 0, index = 0, inAccID = -1;
 		String result = "";
 		
 		/*Function*/
@@ -109,10 +109,10 @@ public class Account extends P0Main {
 		while (index < size) {
 			if (list.get(index) != null) {
 				current = (Account) list.get(index);
-				result += "\n" + current.getAccID();
-				result += "\t" + current.getType();
+				result += "\n" + stringPadder(Integer.toString(current.getAccID()), 9);
+				result += "\t" + stringPadder(current.getType(), 10);
+				result += "\t" + stringPadder(Double.toString(current.getAccBal()), 11);
 				result += "\t" + current.getAccNotes();
-				result += "\t" + current.getAccBal();
 			}
 			index++;
 		}
@@ -122,8 +122,8 @@ public class Account extends P0Main {
 			accSelected = false;
 		}
 		else {
-			result = "AccountID\tType\tNotes\tBalance"
-					+ "\n---------\t----\t-----\t-------"
+			result = "AccountID\tType\t\tBalance  \tNotes"
+					+ "\n---------\t----\t\t-----     \t-------"
 					+ result + "\n";
 			while (accSelected == false) {
 				System.out.println(result);
@@ -133,7 +133,9 @@ public class Account extends P0Main {
 					inAccID = Integer.parseInt(command);
 					current = sql.findByAccIDAndUserID(inAccID, userID);
 					if (current != null){
-						trans = new Transaction();
+						trans = new Transaction(current.getAccID(),current.getAccBal());
+						trans.transBegin();
+						accSelected = true;
 					}
 					else {
 						System.out.println("You do not have access to an account with an id of " + command);
