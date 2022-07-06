@@ -53,7 +53,8 @@ public class TransactionDAO{
 				+ "transnotes, "				
 				+ "transdate "
 				+ "from tbl_transactions "
-				+ "where accountid = ?";
+				+ "where accountid = ? "
+				+ "order by transid";
 		ResultSet result;
 		
 		/*Function*/

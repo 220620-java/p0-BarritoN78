@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.revature.p0.Account;
+import com.revature.p0.P0Main;
 import com.revature.p0.util.List;
 import com.revature.p0.util.SQLConnect;
 import com.revature.p0.util.ArrayList;
@@ -22,7 +23,8 @@ public class AccountDAO {
 				+ "accountnotes, "
 				+ "accountbalance "
 				+ "from tbl_accounts "
-				+ "where userid = ?";
+				+ "where userid = ? "
+				+ "order by accountid";
 		ResultSet result;
 		
 		/*Function*/
@@ -43,7 +45,7 @@ public class AccountDAO {
 			return acc;
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
+			P0Main.exceptionLogger(e);
 			return null;
 		}
 	}
@@ -78,7 +80,7 @@ public class AccountDAO {
 			return acc;
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
+			P0Main.exceptionLogger(e);
 			return null;
 		}
 		finally {
@@ -92,7 +94,7 @@ public class AccountDAO {
 				+ "?, "
 				+ "?, "
 				+ "?, "
-				+ "?, ";
+				+ "?) ";
 		String[] keys = {"accountid"};
 
 		/* Function */
@@ -107,7 +109,7 @@ public class AccountDAO {
 			return acc;
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
+			P0Main.exceptionLogger(e);
 			return null;
 		}
 	}
@@ -129,7 +131,7 @@ public class AccountDAO {
 			SQLSuccess = true;
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			P0Main.exceptionLogger(e);
 			SQLSuccess = false;
 		}
 		

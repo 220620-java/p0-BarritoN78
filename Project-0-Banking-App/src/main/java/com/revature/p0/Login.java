@@ -64,7 +64,6 @@ public class Login extends P0Main{
 					verdict = true;
 					toHome = true;
 				}else {
-					// toHome = true;//Test Only
 					verdict = false;
 					System.out.println("The password you have entered is invalid\n");
 				}

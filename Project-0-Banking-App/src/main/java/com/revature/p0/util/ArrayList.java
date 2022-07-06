@@ -1,9 +1,22 @@
 package com.revature.p0.util;
 
-public class ArrayList<T> implements List<T> {
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+public class ArrayList<T> implements List<T>, Serializable {
 	/*Class Variables*/
-	T[] arrList = (T[]) new Object[10];
+	T[] arrList;
 	T[] arrListTemp;
+	
+	public ArrayList() {
+		arrList = (T[]) new Object[10];
+	}
+	
+	public ArrayList(T... obj) {
+		arrList = obj;
+	}
+
 
 	/*Add a new object to the list*/
 	@Override
@@ -120,5 +133,11 @@ public class ArrayList<T> implements List<T> {
 	public int length() {
 		return arrList.length;
 	}
+	
+	@Override
+	public String toString() {
+		return Arrays.toString(arrList);
+	}
+
 
 }

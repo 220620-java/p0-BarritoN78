@@ -1,9 +1,9 @@
 package com.revature.p0;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.util.Scanner;
 
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,105 +14,71 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.revature.p0.data.LoginDAO;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(Lifecycle.PER_CLASS)
 public class LoginTest{
-	private InputStream sysInbackup = System.in;
-	private ByteArrayInputStream input;
+	private ByteArrayInputStream replace;
 	@InjectMocks
-	@Spy
-	private LoginScreen lScreen;
+	private Login lScreen;
 	
 	@Mock
-	private BankHome bHome;
+	private LoginDAO sql;
 	
 	@BeforeAll
 	public void beforeAll() {
-		lScreen = new LoginScreen();
 		MockitoAnnotations.openMocks(this);
 	}
 	
 	@BeforeEach
 	public void beforeEach() {
-		lScreen.setAppAccess(false);
+		lScreen = new Login();
 	}
 	
 	@Test
-	/*Should equal true if the password is correct*/
+	/*Should equal true if user input matches the given string
+	 *The mock input and the given string are "password"*/
 	public void testLoginPasswordEntryPass() {
 		/*Variables*/
 		Boolean result;
 		
-		/*Setup*/
-		input = new ByteArrayInputStream("Is correct".getBytes());
-		System.setIn(input);
+		/*Mocks*/
+		replace = new ByteArrayInputStream("password".getBytes());
+		P0Main.key_inp = new Scanner(replace);
+		
+		/*Function*/
+		result = lScreen.loginPasswordEntry("password");
 		
 		/*Test*/
-		//result = lScreen.loginPasswordEntry();
-		
-		/*Assertion*/
-		//Assertions.assertEquals(true, result);
+		Assertions.assertEquals(true, result);
 	}
 	
 	@Test
-	@Disabled
-	/*Should equal false for an incorrect password*/
-	//Activate test line in LoginScreen to break out of loop
+	/*Should equal false if user input does not match the given string
+	 *The mock input is "PassWord" and the given string is "password". The line separator and "H" are to break the loop
+	 *The test also shows that there is case sensitivity
+	 *Also, if the loop does break as intended, then that function is proved as well*/
 	public void testLoginPasswordEntryFail() {
 		/*Variables*/
 		Boolean result;
 		
-		/*Setup*/
-		input = new ByteArrayInputStream(("Random String").getBytes());
-		System.setIn(input);
-		
-		/*Test*/
-		//result = lScreen.loginPasswordEntry();
-		
-		/*Assertion*/
-		//Assertions.assertEquals(false, result);		
-	}
-	
-	@Test
-	/*Should equal false if the user decides to return to the home screen*/
-	public void testLoginPasswordEntryHome() {
-		/*Variables*/
-		Boolean result;
-		
-		/*Setup*/
-		input = new ByteArrayInputStream("h".getBytes());
-		System.setIn(input);
-		
-		/*Test*/
-		//result = lScreen.loginPasswordEntry();
-		
-		/*Assertion*/
-		//Assertions.assertEquals(false, result);
-	}
-	
-	@Test
-	/*Should equal true if the user enters the same password twice*/
-	public void testRegisterPasswordEntryPass() {
-		/*Variables*/
-		Boolean result;
-		
 		/*Mocks*/
-		Mockito.when(lScreen.getInput()).thenReturn("MyPassword");
+		replace = new ByteArrayInputStream(("PassWord"+ System.lineSeparator() +"H").getBytes());
+		P0Main.key_inp = new Scanner(replace);
+		
+		/*Function*/
+		result = lScreen.loginPasswordEntry("password");
 		
 		/*Test*/
-		//result = lScreen.registerPasswordEntry();
-		
-		/*Assertion*/
-		//Assertions.assertEquals(true, result);
+		Assertions.assertEquals(false, result);
 	}
 	
-	@AfterAll
-	public void afterAll() {
-		System.setIn(sysInbackup);
+	@AfterEach
+	public void afterEach() {
+		P0Main.key_inp = new Scanner(System.in);
 	}
 }

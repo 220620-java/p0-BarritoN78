@@ -3,6 +3,8 @@ package com.revature.p0.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import com.revature.p0.P0Main;
+
 public class SQLConnect {
 	private static SQLConnect sqlConnect;
 
@@ -31,7 +33,7 @@ public class SQLConnect {
 			conn = DriverManager.getConnection(url, username, password);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			P0Main.exceptionLogger(e);
 		}
 		return conn;
 	}

@@ -53,9 +53,15 @@ public class Account extends P0Main {
 			command = getInput();
 			switch(command.toUpperCase()) {
 				case "C","S":
-					type = command.toUpperCase();
+					if (command.equals("C")) {
+						setType("Checkings");
+					}
+					else {
+						setType("Savings");
+					}
 					typeGiven = true;break;
 				case "X":
+					System.out.println("Account creation canceled");
 					cancel = true;break;
 				default:
 					System.out.println("The command you entered is invalid\n");break;
@@ -72,18 +78,18 @@ public class Account extends P0Main {
 		/*Function*/
 		do {//Account Name Loop
 			System.out.println("Write a name to help you identify the account later. 'X' to cancel\n");
-			accNotes = getInput();
-			switch(accNotes.toUpperCase()) {
+			command = getInput();
+			switch(command.toUpperCase()) {
 				case "X":
 					cancel = true;break;
 				default://Name Validation
-					if (accNotes.length() < 25) {//Name is less than 25 characters
-						if ((accNotes.contains("!") || accNotes.contains(";")) == false) {//Name does not contain illegal symbol. No SQL injection plz
-							//TODO INSERT accID, accName, type, 0 TO bank
+					if (command.length() <= 25) {//Name is less than 25 characters
+						if ((command.contains("!") || command.contains(";") || command.contains("*")) == false) {//Name does not contain illegal symbol. No SQL injection plz
+							setAccNotes(command);
 							nameGiven = true;
 						}
 						else {
-							System.out.println("Your name contain an illegal symbol. '!' and ';' cannot be used\n");
+							System.out.println("Your name contains an illegal symbol. '!', '*' and ';' cannot be used\n");
 						}
 					}
 					else {
@@ -127,15 +133,15 @@ public class Account extends P0Main {
 					+ result + "\n";
 			while (accSelected == false) {
 				System.out.println(result);
-				System.out.println("Please enter the id of the account you wish to access");
+				System.out.println("Please enter the id of the account you wish to access or 'X' to cancel");
 				command = getInput();
 				try {
 					inAccID = Integer.parseInt(command);
 					current = sql.findByAccIDAndUserID(inAccID, userID);
 					if (current != null){
+						accSelected = true;
 						trans = new Transaction(current.getAccID(),current.getAccBal());
 						trans.transBegin();
-						accSelected = true;
 					}
 					else {
 						System.out.println("You do not have access to an account with an id of " + command);
@@ -143,18 +149,30 @@ public class Account extends P0Main {
 					}
 				}
 				catch (NumberFormatException e) {
-					e.printStackTrace();
-					System.out.println("The account id you entered is invalid");
-					accSelected = false;
+					if (command.toUpperCase().equals("X")) {
+						accSelected = true;
+						System.out.println("You have been returned to the home screen");
+					}
+					else {
+						System.out.println("The account id you entered is invalid");
+						accSelected = false;
+					}
+					P0Main.exceptionLogger(e);					
 				}
 				catch (Exception e) {
-					e.printStackTrace();
+					P0Main.exceptionLogger(e);
 				}
 			}
 		}
 		
 		/*Output*/
 		return accSelected;
+	}
+	
+	/*Instantiates a new Transaction()
+	 * Only necessary because of how Mockito works*/
+	private Boolean instTransaction(Account current) {
+		return true;
 	}
 
 	/*Getters and Setters*/

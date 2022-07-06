@@ -59,7 +59,7 @@ public class Register extends P0Main{
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			P0Main.exceptionLogger(e);
 		}
 		return accountCreated;
 	}

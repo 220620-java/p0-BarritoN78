@@ -29,7 +29,7 @@ public class Transaction extends P0Main{
 	}
 
 	/*Tell the user their accountBal and ask what transaction they want to perform*/
-	protected void transBegin() {
+	protected Boolean transBegin() {
 		/*Local Variables*/
 		Boolean exit = false;
 		
@@ -40,7 +40,7 @@ public class Transaction extends P0Main{
 			command = getInput().toUpperCase();
 			switch (command) {
 				case "W", "D":
-					transaction();break;
+					transaction(command);break;
 				case "H":
 					transHistory(accID);break;
 				default:
@@ -60,18 +60,19 @@ public class Transaction extends P0Main{
 		
 		}
 		while(exit == false);
+		return exit;
 	}
 		
 	
 	
 	/*Perform deposits or withdraws based on the passed command*/
-	private void transaction() {
+	protected void transaction(String type) {
 		/*Local Variables*/
 		double amount = 0.0;
 		Transaction test;
 		
 		/*Function*/
-		switch(command) {
+		switch(type) {
 			case "W":
 				System.out.println("Please enter the amount you would like to withdraw\n");break;
 			case "D":
@@ -84,7 +85,7 @@ public class Transaction extends P0Main{
 				System.out.println("The amount you have entered is invalid\n");
 			}
 			else {
-				switch(command) {
+				switch(type) {
 					case "W": //Withdraw functions
 						setType("Withdraw");
 						if(accountBal < amount) {
@@ -120,17 +121,19 @@ public class Transaction extends P0Main{
 			}
 		}
 		catch (Exception e) {
+			P0Main.exceptionLogger(e);
 			System.out.println("The amount you have entered is invalid\n");
 		}
 	}
 	
 	/*Retrieves a list of an account's transaction history*/
-	private void transHistory(int accID) {
+	protected Boolean transHistory(int accID) {
 		/*Local Variables*/
 		List<Transaction> list = new ArrayList<Transaction>();
 		Transaction current;
 		int size = 0, index = 0;
 		String result = "";
+		Boolean historyFound = false;
 		
 		/*Function*/
 		list = sql.findByID(accID);
@@ -149,14 +152,18 @@ public class Transaction extends P0Main{
 		}
 		if (result == "") {
 			result = "No accounts were found";
+			historyFound = false;
 		}
 		else {
 			result = "Date\t    TransactionID\tType\t\tPre-Balance\tPost-Balance\tNotes"
 					+ "\n----\t    -------------\t----\t\t-----------\t------------\t----"
 					+ result + "\n";
 
-			System.out.println(result);
+			System.out.println(result);	
+			historyFound = true;
+
 		}
+		return historyFound;
 	}
 	
 	/*Getters and Setters*/
