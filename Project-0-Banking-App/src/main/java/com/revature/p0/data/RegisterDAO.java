@@ -18,7 +18,7 @@ public class RegisterDAO {
 				+ "?, "
 				+ "?, "
 				+ "?, "
-				+ "?, ";
+				+ "?)";
 		String[] keys = {"userid"};
 
 		/* Function */
